@@ -20,4 +20,14 @@ export const SignInValidation = z.object({
   console.log("My inferred type is ",typeof(SignupValidation));
 
 
+  export const PostValidation = z.object({
+    caption:z.string().min(5).max(220),
+    file:z.custom<File[]>(),
+    location:z.string().min(2).max(100),
+    tags:z.string()  
+
+  })
+  console.log("My inferred type is ",typeof(SignupValidation));
+
+
   

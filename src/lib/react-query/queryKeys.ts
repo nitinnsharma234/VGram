@@ -1,0 +1,16 @@
+export enum QUERY_KEYS{
+    GET_RECENT_POSTS = 'getRecentPosts',
+    GET_USER_POSTS = 'getUserPosts',
+    GET_USER_PROFILE = 'getUserProfile',
+    GET_USER_FOLLOWERS = 'getUserFollowers',
+    GET_USER_FOLLOWING = 'getUserFollowing',
+    GET_USER_FOLLOWERS_COUNT = 'getUserFollowersCount',
+    GET_USER_FOLLOWING_COUNT = 'getUserFollowingCount',
+    GET_USER_POSTS_COUNT = 'getUserPostsCount',
+    GET_POST = 'getPost',
+    GET_POST_COMMENTS = 'getPostComments',
+    GET_POST_COMMENTS_COUNT = 'getPostCommentsCount',
+    GET_POST_LIKES = 'getPostLikes',
+    GET_POST_LIKES_COUNT = 'getPostLikesCount',
+    GET_POST_COMMENTS_LIKES = 'getPostCommentsLikes',
+}

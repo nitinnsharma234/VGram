@@ -1,7 +1,7 @@
 import {Client, Account, Databases, Storage, Avatars} from 'appwrite';
 
         
-const STORAGE_COLLECTION_ID:String='665714ed00175adb0324';
+const STORAGE_COLLECTION_ID='665714ed00175adb0324';
 const POST_COLLECTION_ID='66580b4c00268d26ed45';
 const SAVES_COLLECTION_ID='66580bc4000aed8851a2';
 const USER_COLLECTION_ID='66580b87001c12c497a3';
@@ -11,7 +11,7 @@ export const appwriteConfig={
     projectId: '66570b1000144655f43b',
     url:'https://cloud.appwrite.io/v1',
     databaseId:DATABASE_COLLECTION_ID,
-    storageID:STORAGE_COLLECTION_ID,
+    storageId:STORAGE_COLLECTION_ID,
     userCollectionId:USER_COLLECTION_ID,
     postCollectionId:POST_COLLECTION_ID,
     savesCollectionId:SAVES_COLLECTION_ID
