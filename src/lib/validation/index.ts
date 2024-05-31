@@ -8,3 +8,16 @@ export const SignupValidation = z.object({
 
   })
   console.log("My inferred type is ",typeof(SignupValidation));
+
+
+
+
+export const SignInValidation = z.object({
+    email:z.string().email(),
+    password:z.string().min(8,{message:'Password must be at least 8 characters'}),
+
+  })
+  console.log("My inferred type is ",typeof(SignupValidation));
+
+
+  
