@@ -15,18 +15,22 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import FileUploader from '../shared/FileUploader'
 import { Textarea } from '../ui/textarea'
-import { useCreatePost } from "@/lib/react-query/queriesAndMutation"
+import { useCreatePost, useUpdatePost } from "@/lib/react-query/queriesAndMutation"
 import { useUserContext } from "@/context/AuthContext"
 import { toast } from "../ui/use-toast"
 import { useNavigate } from "react-router-dom"
+import { updatePost } from "@/lib/appwrite/api"
+import Loader from "../shared/Loader"
 
 type PostFormProps={
-    post?:Models.Document
+    post?:Models.Document;
+    action:'Create'|'Update';
 }
 
 
-const PostForm = ({post}:PostFormProps) => {
+const PostForm = ({post,action}:PostFormProps) => {
     const {mutateAsync:createPost,isPending:isLoadingCreate}=useCreatePost();
+    const {mutateAsync:updatePost,isPending:isLoadingUpdate}=useUpdatePost();
     const {user}=useUserContext();
     const navigate=useNavigate();
 
@@ -36,10 +40,24 @@ const PostForm = ({post}:PostFormProps) => {
             caption: post?post?.caption:"",
             file:[] ,
             location:post?post?.location:"",
-            tags: post?post.tags.jon(','):""
+            tags: post?post.tags.join(','):""
         }
     })
     async function onSubmit(values: z.infer<typeof PostValidation>) {
+        if(post && action=='Update'){
+            const updatedPost = await updatePost({
+                postId:post.$id,
+               ...values,
+               imageId:post?.imageId,
+               imageUrl:post?.imageUrl
+            })
+            
+            // if anything goes wrong 
+             if (!updatePost){
+                toast({title:'Please try again'})
+             }
+             return navigate(`/post/${post.$id}`)
+        }
       const newPost = await createPost({
         ...values,
         userId:user.id
@@ -116,8 +134,8 @@ const PostForm = ({post}:PostFormProps) => {
                         className='shad-button_dark_4'>
                         Cancel
                     </Button>
-                    <Button type="submit" className='shad-button_primary whitespace-nowrap'>
-                        Submit
+                    <Button type="submit" className='shad-button_primary whitespace-nowrap' disabled={isLoadingCreate||isLoadingUpdate}>
+                       {isLoadingCreate||isLoadingUpdate?<Loader/>:action=='Update'?'Update':'Submit'}
                     </Button>
                 </div>
             </form>
